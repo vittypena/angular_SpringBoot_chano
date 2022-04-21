@@ -13,6 +13,8 @@ export class FormComponent implements OnInit {
   public cliente: Cliente = new Cliente();
   public titulo: string = "Crear Cliente";
 
+  public errores?: string[]; 
+
   constructor(private clienteService: ClienteService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
@@ -29,6 +31,11 @@ export class FormComponent implements OnInit {
     response => {
     this.router.navigate(['/clientes'])
     swal.fire('Nuevo Cliente', `El cliente: ${response.nombre} ha sido creado con exito`, 'success')
+    },
+    err=> {
+      this.errores = err.error.errors as string[];
+      console.error('Codigo del error desde el backend: ' + err.status)
+      console.error(err.error.errors);
     }
   );
   }
