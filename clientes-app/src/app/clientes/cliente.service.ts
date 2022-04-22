@@ -18,9 +18,13 @@ export class ClienteService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getClientes(): Observable<Cliente[]> { //Convertimos nuestro listado de clientes en un Observable, para convertirlo en un stream y poder manejarlo en api rest
-    //return of(CLIENTES);
-    return this.http.get<Cliente[]>(this.urlEndPoint)
+  getClientes(page:number): Observable<any> { 
+    return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
+      map((response: any) => {
+        (response.content as Cliente[])
+        return response;
+      })
+    )  
   }
 
   create(cliente: Cliente): Observable<Cliente>{ //Una forma es retornando cliente y casteandolo a el map despues y la otra como los otros metodos con any

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import swal from 'sweetalert2';
-import Swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -12,12 +12,20 @@ import Swal from 'sweetalert2';
 export class ClientesComponent implements OnInit {
 
   clientes!: Cliente[];  
+  paginador:any;
 
-  constructor(private clienteService: ClienteService) { }//Se define el atributo y a su vez de inyecta
+  constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute) { }//Se define el atributo y a su vez de inyecta
 
-  ngOnInit(): void {
-    this.clienteService.getClientes().subscribe(  //Get cliente es un observable, va a ser observado por observadores, entonces tenemos que subscribirlo
-      response => this.clientes = response  //Pasamos el stream a this.clientes
+  ngOnInit(): void {     
+    this.activatedRoute.paramMap.subscribe( params => {   
+      let page:number = +params.get('page')! | 0; //Lo convierte a string y si no hay parametro lo pone en 0 por defecto.
+      this.clienteService.getClientes(page).subscribe(  //Get cliente es un observable, va a ser observado por observadores, entonces tenemos que subscribirlo
+        response => {
+          this.clientes = response.content as Cliente[]  //Pasamos el stream a this.clientes
+          this.paginador = response;
+        }
+      );
+    }
     );
   }
 

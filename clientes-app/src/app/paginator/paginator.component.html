@@ -1,0 +1,6 @@
+<ul *ngIf="paginas!.length > 0" class="pagination">
+    <li *ngFor="let numeroPagina of paginas" class="page-item">
+        <span *ngIf="numeroPagina-1 == paginador.number" class="page-link">{{numeroPagina}}</span>  <!--Si estamos en la misma pagina deshabilitamos ese boton-->
+        <a *ngIf="numeroPagina-1 != paginador.number" [routerLink]="['/clientes/page', numeroPagina-1]" class="page-link">{{ numeroPagina }}</a>
+    </li>
+</ul>
