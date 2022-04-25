@@ -12,6 +12,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormComponent } from './clientes/form.component';
 import { FormsModule } from '@angular/forms';
 import { PaginatorComponent } from './paginator/paginator.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import { DetalleComponent } from './clientes/detalle/detalle.component';
 
 const routes: Routes = [ //Routing de todos los componentes, similar a @GetMapping
   {path: '', redirectTo: '/clientes', pathMatch: 'full'},
@@ -30,13 +36,18 @@ const routes: Routes = [ //Routing de todos los componentes, similar a @GetMappi
     DirectivaComponent,
     ClientesComponent,
     FormComponent,
-    PaginatorComponent    
+    PaginatorComponent,
+    DetalleComponent    
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(routes)  
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatDatepickerModule,
+    MatMomentDateModule  
   ],
   providers: [ClienteService, {provide: LOCALE_ID, useValue: 'en-US'}],
   bootstrap: [AppComponent]

@@ -1,6 +1,22 @@
 <ul *ngIf="paginas!.length > 0" class="pagination">
-    <li *ngFor="let numeroPagina of paginas" class="page-item">
+    <li href="page-item" *ngIf="paginador.number > 0">
+        <a class="page-link" [routerLink]="['/clientes/page', paginador.number-1]">&laquo;</a>
+    </li>
+
+    <li [ngClass]="paginador.first?'disabled page-item': 'page-item'">
+        <a [routerLink]="['/clientes/page', 0]" class="page-link">Primera</a>
+    </li>
+
+    <li *ngFor="let numeroPagina of paginas" class="page-item" [ngClass]="numeroPagina-1 == paginador.number? 'active':''">
         <span *ngIf="numeroPagina-1 == paginador.number" class="page-link">{{numeroPagina}}</span>  <!--Si estamos en la misma pagina deshabilitamos ese boton-->
         <a *ngIf="numeroPagina-1 != paginador.number" [routerLink]="['/clientes/page', numeroPagina-1]" class="page-link">{{ numeroPagina }}</a>
     </li>
+
+    <li [ngClass]="paginador.last?'disabled page-item': 'page-item'">
+        <a [routerLink]="['/clientes/page', paginador.totalPages-1]" class="page-link">Ultima</a>
+    </li>
+
+    <li href="page-item" *ngIf="paginador.number < paginador.totalPages-1">
+        <a class="page-link" [routerLink]="['/clientes/page', paginador.number+1]">&raquo;</a>
+    </li>          
 </ul>
