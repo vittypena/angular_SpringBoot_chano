@@ -25,7 +25,8 @@ const routes: Routes = [ //Routing de todos los componentes, similar a @GetMappi
   {path: 'clientes', component: ClientesComponent},
   {path: 'clientes/form', component: FormComponent},
   {path: 'clientes/page/:page', component: ClientesComponent},
-  {path: 'clientes/form/:id', component: FormComponent}
+  {path: 'clientes/form/:id', component: FormComponent},
+  {path: 'clientes/ver/:id', component: DetalleComponent}
 ];
 
 @NgModule({
